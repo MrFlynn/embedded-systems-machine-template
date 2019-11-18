@@ -31,8 +31,7 @@ Vagrant.configure("2") do |config|
     end
 
     # Configure network bridge for Raspberry Pi.
-    output.vm.network 'private_network', type: 'dhcp'
-    output.vm.network 'public_network', ip: '192.168.136.3', bridge: 'en7: RNDIS/Ethernet Gadget'
+    output.vm.network 'public_network', ip: '192.168.136.1', bridge: 'en7: RNDIS/Ethernet Gadget'
   end
 
   config.vm.synced_folder ".", "/vagrant", disabled: true

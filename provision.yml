@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Install required development packages
+      apt:
+        pkg:
+          - gcc-avr
+          - binutils-avr
+          - avr-libc
+          - gdb-avr
+          - avrdude
+          - git
+    - name: Clone project scripts to /usr/bin/avr-tools
+      git:
+        repo: https://github.com/jmcda001/UCRCS120B_AVRTools.git
+        dest: /usr/bin/avr-tools

@@ -16,3 +16,36 @@
       git:
         repo: https://github.com/jmcda001/UCRCS120B_AVRTools.git
         dest: /usr/bin/avr-tools
+    - name: Enable IPv4 forwarding using sysctl
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        state: present
+    - name: Masquerade connection on eth0
+      iptables:
+        table: nat
+        chain: POSTROUTING
+        out_interface: eth0
+        jump: MASQUERADE
+    - name: Update conntrack state
+      iptables:
+        chain: FORWARD
+        match: conntrack
+        ctstate:
+          - RELATED
+          - ESTABLISHED
+        jump: ACCEPT
+    - name: Forward internet connection from eth0 to eth1
+      iptables:
+        chain: FORWARD
+        in_interface: eth0
+        out_interface: eth1
+        jump: ACCEPT
+    - name: Create file to save iptables rules
+      file:
+        path: /etc/iptables
+        state: directory
+        owner: root
+        group: root
+    - name: Save IPTables rules
+      shell: iptables-save > /etc/iptables/rules.v4

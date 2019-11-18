@@ -1,0 +1,6 @@
+# Packer related stuff
+output-*
+.vagrant/
+
+# VIM
+*.swp

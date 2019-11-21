@@ -12,6 +12,7 @@
           - gdb-avr
           - avrdude
           - git
+          - iptables-persistent
     - name: Clone project scripts to /usr/bin/avr-tools
       git:
         repo: https://github.com/jmcda001/UCRCS120B_AVRTools.git
@@ -47,5 +48,10 @@
         state: directory
         owner: root
         group: root
+    - name: Start iptables-persistent service
+      service:
+        name: netfilter-persistenta
+        state: started
+        enabled: yes
     - name: Save IPTables rules
       shell: iptables-save > /etc/iptables/rules.v4

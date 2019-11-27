@@ -34,6 +34,9 @@ $ packer build machine.json
 $ cd output-vagrant/
 $ vagrant up
 ```
+4. Once the machine is running, login using the vagrant account. The default
+   password is `vagrant` (obviously change this to something more secure/less
+   obvious).
 
 _Note:_ if you get any network interface errors, edit the `Vagrantfile` in your
 output directory and edit the end of line 34 (the one beginning with
